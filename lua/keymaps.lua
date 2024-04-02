@@ -14,6 +14,7 @@ wk.register({
     x = { "<cmd>x<cr>", "Save and quit" },
     e = { "<cmd>Neotree<cr>", "Explorer Neotree" },
   },
+  ["<Esc>"] = { "<cmd>nohlsearch<cr>", "Disable highlighting" },
 }, { mode = "n" })
 
 -- Telescope
@@ -24,9 +25,8 @@ wk.register({
     g = { "<cmd>Telescope live_grep<cr>", "Grep" },
     r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
     b = { "<cmd>Telescope buffers<cr>", "Buffers" },
-    --n = { "New File" }, -- just a label. don't create any mapping
-    --e = "Edit File", -- same as above
   },
+  ["<leader><space>"] = { "<cmd>Telescope buffers<cr>", "Buffers" },
 }, { mode = "n" })
 
 -- LSPs
