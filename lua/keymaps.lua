@@ -1,5 +1,8 @@
 -- All custom keymaps can be found in this file
--- All keymaps are configured using which-key
+
+-- I prefer whichkey to add keymaps since it allows to make groups of keymaps
+-- but it also works with vim.keymap.set
+-- ej: vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open float" })
 
 local wk = require("which-key")
 
@@ -29,7 +32,7 @@ wk.register({
   ["<leader><space>"] = { "<cmd>Telescope buffers<cr>", "Buffers" },
 }, { mode = "n" })
 
--- LSPs
+-- LSP, diagnostics, format
 wk.register({
   ["<leader>l"] = {
     name = "LSP",
@@ -42,12 +45,9 @@ wk.register({
       "Format",
     },
   },
+  ["gd"] = { vim.lsp.buf.definition, "Go to definition" },
 })
 
---vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, {})
+--vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open float" })
 --vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 --vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
---vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
---vim.keymap.set("n", "<leader>gf", function()
---	vim.lsp.buf.format({ async = true })
---end, {})
