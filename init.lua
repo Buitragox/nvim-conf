@@ -1,7 +1,11 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
+-- This is the first file that gets run
+
+-- Configuration for indenting
+vim.opt.expandtab = true -- \t will be whitespaces
+vim.opt.shiftwidth = 2   -- how many whitespaces is an indentation
+vim.opt.tabstop = 2      -- how many whitespaces is a \t
+vim.opt.softtabstop = 2  -- how many whitespaces is a <tab> or <bs>
+vim.opt.smartindent = true
 
 vim.opt.number = true             -- enable line numbering
 vim.opt.relativenumber = true     -- enable relative line numbering
@@ -17,7 +21,15 @@ vim.opt.smartcase = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
-vim.opt.scrolloff = 10 -- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 10   -- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.mouse = "a"      -- Enable mouse support for all modes
+vim.opt.signcolumn = "yes"
+vim.opt.updatetime = 250 -- Decrease update time
+
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
+vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
