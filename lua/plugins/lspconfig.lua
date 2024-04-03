@@ -18,11 +18,14 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
+
       -- Setup lsps
-      lspconfig.lua_ls.setup({})
-      lspconfig.ruff_lsp.setup({})
-      lspconfig.solargraph.setup({})
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      lspconfig.lua_ls.setup({ capabilities = capabilities })
+      -- lspconfig.ruff_lsp.setup({ capabilities = capabilities })
+      lspconfig.solargraph.setup({ capabilities = capabilities })
+      lspconfig.pyright.setup({ capabilities = capabilities })
     end,
   },
 }
-
