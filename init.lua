@@ -21,7 +21,7 @@ vim.opt.smartcase = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
-vim.opt.scrolloff = 10   -- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 8    -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.mouse = "a"      -- Enable mouse support for all modes
 vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 250 -- Decrease update time
