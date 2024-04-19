@@ -11,7 +11,6 @@ return {
         "vim",
         "vimdoc",
         "query",
-        "ruby",
         "java",
         "javascript",
         "typescript",
@@ -21,8 +20,14 @@ return {
       },
       sync_install = false,
       auto_install = true,
-      highlight = { enable = true },
-      indent = { enable = true },
+      highlight = {
+        enable = true,
+        disable = { "ruby" },
+      },
+      indent = {
+        enable = true,
+        disable = { "ruby" },
+      },
     })
   end,
 }

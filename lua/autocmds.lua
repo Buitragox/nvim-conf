@@ -15,10 +15,33 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Make diagnostics feel more responsive by making them show
 -- after changing modes, or making changes while in normal mode
-vim.api.nvim_create_autocmd({ "TextChanged", "ModeChanged" }, {
+-- vim.api.nvim_create_autocmd({ "TextChanged", "ModeChanged" }, {
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   desc = "Update diagnostics on document/buffer",
   group = vim.api.nvim_create_augroup("diagnostic-update", { clear = true }),
   callback = function()
     vim.diagnostic.show()
+  end,
+})
+
+-- autocmd to fix weird bug with treesitter and ruby
+-- https://github.com/nvim-treesitter/nvim-treesitter/issues/3363
+-- vim.cmd('autocmd FileType ruby setlocal indentkeys-=.')
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  desc = "Disable . as indentkeys for ruby",
+  pattern = "ruby",
+  group = vim.api.nvim_create_augroup("disable-dot-indent-ruby", { clear = true }),
+  callback = function()
+    -- vim.opt_local.indentkeys
+    vim.cmd("setlocal indentkeys-=.")
+  end,
+})
+
+-- Automatically enter insert mode when opening a terminal
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+  desc = "Change to insert mode when entering terminal",
+  group = vim.api.nvim_create_augroup("set-i-mode-term-open", { clear = true }),
+  callback = function()
+    vim.cmd("startinsert")
   end,
 })
