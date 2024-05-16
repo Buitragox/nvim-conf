@@ -6,7 +6,7 @@
 
 local wk = require("which-key")
 
--- Personal keymaps
+-- PERSONAL MAPPINGS, unrelated to plugins
 wk.register({
   ["<C-h>"] = { "<C-w>h", "Go to the left window" },
   ["<C-j>"] = { "<C-w>j", "Go to the down window" },
@@ -20,11 +20,22 @@ wk.register({
   ["<Esc>"] = { "<cmd>nohlsearch<cr>", "Disable highlighting" },
 }, { mode = "n" })
 
--- Telescope
+wk.register({
+  -- This mapping doesn't quit the terminal. It just puts you in normal mode.
+  -- To exit the terminal (without quitting nvim) use the `exit` command on the terminal
+  ["<Esc>"] = { "<C-\\><C-n>", "Exit terminal mode" },
+}, { mode = "t" })
+
+-- TELESCOPE
 wk.register({
   ["<leader>f"] = {
     name = "file search", -- optional group name
-    f = { "<cmd>Telescope find_files<cr>", "Find files" },
+    f = {
+      function()
+        require("telescope.builtin").find_files({ hidden = true })
+      end,
+      "Find files",
+    },
     g = { "<cmd>Telescope live_grep<cr>", "Grep" },
     r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
     b = { "<cmd>Telescope buffers<cr>", "Buffers" },
@@ -32,7 +43,7 @@ wk.register({
   ["<leader><space>"] = { "<cmd>Telescope buffers<cr>", "Buffers" },
 }, { mode = "n" })
 
--- LSP, diagnostics, format
+-- LSP, DIAGNOSTICS, FORMATTING
 wk.register({
   ["<leader>l"] = {
     name = "LSP",
@@ -47,6 +58,40 @@ wk.register({
   },
   ["gd"] = { vim.lsp.buf.definition, "Go to definition" },
 })
+
+-- Neotree
+-- TODO: Move Neotree from personal keymaps to this section
+-- FIX: Make neotree disappear when neotree is focused and <leader>e is pressed
+
+-- Noice
+-- TODO: Add keymaps to dismiss Noice
+
+-- TESTS, mappings for quickly running test suites
+-- TODO: Add better keymaps for running tests
+-- Some ideas:
+-- 1. group them by test library?
+-- 2. load specific keymaps depending on the language?
+wk.register({
+  t = {
+    name = "tests",
+    r = { "<cmd>terminal rspec -fd<cr>", "RSpec" },
+    R = {
+      function()
+        local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+        local file_name = vim.api.nvim_buf_get_name(0)
+        vim.cmd(string.format("terminal rspec %s:%s -fd", file_name, row))
+      end,
+      "RSpec on current line",
+    },
+    f = {
+      function()
+        local file_name = vim.api.nvim_buf_get_name(0)
+        vim.cmd(string.format("terminal rspec %s -fd", file_name))
+      end,
+      "RSpec on current file",
+    },
+  },
+}, { prefix = "<leader>", mode = "n" })
 
 --vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open float" })
 --vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
